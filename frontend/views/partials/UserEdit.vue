@@ -16,6 +16,9 @@
               <option key="admin" value="admin">
                 {{ lang('Admin') }}
               </option>
+              <option key="auto-login" value="auto-login">
+                {{ lang('AutoLogin') }}
+              </option>
             </b-select>
           </b-field>
 
@@ -55,6 +58,9 @@
             </b-checkbox>
             <b-checkbox v-model="permissions.zip">
               {{ lang('Zip') }}
+            </b-checkbox>
+            <b-checkbox v-model="permissions.autologin">
+              {{ lang('Autologin') }}
             </b-checkbox>
           </div>
         </b-field>
@@ -96,6 +102,7 @@ export default {
         download: _.find(this.user.permissions, p => p == 'download') ? true : false,
         batchdownload: _.find(this.user.permissions, p => p == 'batchdownload') ? true : false,
         zip: _.find(this.user.permissions, p => p == 'zip') ? true : false,
+        autologin: _.find(this.user.permissions, p => p == 'autologin') ? true : false,
       }
     }
   },

@@ -173,4 +173,12 @@ class UserTest extends TestCase
 
         $this->assertTrue($user->hasPermissions('zip'));
     }
+
+    public function testUserCanHaveAutoLoginPermissions()
+    {
+        $user = new User();
+        $user->setPermissions(['autologin']);
+
+        $this->assertTrue($user->hasPermissions('autologin'));
+    }
 }
