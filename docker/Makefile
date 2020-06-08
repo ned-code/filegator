@@ -18,3 +18,6 @@ phpunit:
 
 logs:
 	@docker-compose -f docker-compose.yaml -f docker-compose.dev.yaml logs
+
+bash:
+	@docker-compose -f docker-compose.yaml -f docker-compose.dev.yaml exec rs_filegator bash
