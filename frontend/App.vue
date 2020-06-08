@@ -1,5 +1,5 @@
 <template>
-  <div v-if="$store.state.initialized" id="wrapper">
+  <div v-if="$store.state.initialized" id="wrapper" :class="{ autologin:can('autologin') }">
     <Login v-if="is('guest') && ! can('write') && ! can('read') && ! can('upload')" />
     <div v-else id="inner">
       <router-view />
@@ -89,6 +89,8 @@ html, body, #wrapper, #inner, .container {
     padding: 20px;
   }
 }
-
+.autologin{
+  @import "custom/custom.scss";
+}
 </style>
 
