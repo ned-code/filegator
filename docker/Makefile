@@ -15,3 +15,6 @@ dev:
 
 phpunit:
 	@docker-compose -f docker-compose.yaml -f docker-compose.dev.yaml exec rs_filegator vendor/bin/phpunit
+
+logs:
+	@docker-compose -f docker-compose.yaml -f docker-compose.dev.yaml logs
