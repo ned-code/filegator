@@ -18,6 +18,7 @@ export default new Vuex.Store({
     cwd: {
       location: '/',
       content: [],
+      metadata: []
     },
     tree: {},
   },
@@ -66,6 +67,7 @@ export default new Vuex.Store({
     setCwd(state, data) {
 
       state.cwd.location = data.location
+      state.cwd.metadata = data.metadata
       state.cwd.content = []
 
       _.forEach(_.sortBy(data.content, [function(o) { return _.toLower(o.type) }]), (o) => {

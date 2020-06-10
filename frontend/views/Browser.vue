@@ -33,7 +33,12 @@
             </a>
           </div>
         </div>
-
+        <div v-if="can('read') && getMetadata()" class="is-flex is-justify-between">
+          <div class="metadata">
+            <h3>{{ getMetadata().title }}</h3>
+            <p>{{ getMetadata().desc }}</p>
+          </div>
+        </div>
         <section id="multi-actions" class="is-flex is-justify-between">
           <div>
             <b-field v-if="can('upload') && ! checked.length" class="file is-inline-block">
@@ -217,8 +222,9 @@ export default {
       })
         .then(ret => {
           this.$store.commit('setCwd', {
-            content: ret.files,
+            content: ret.files.filter(this.filterFiles),
             location: ret.location,
+            metadata: ret.metadata
           })
           this.isLoading = false
         })
@@ -226,7 +232,7 @@ export default {
           this.isLoading = false
           this.handleError(error)
         })
-    },
+    }
   },
   mounted() {
     if (this.can('read')) {
@@ -240,11 +246,18 @@ export default {
       })
         .then(ret => {
           this.$store.commit('setCwd', {
-            content: ret.files,
+            content: ret.files.filter(this.filterFiles),
             location: ret.location,
+            metadata: ret.metadata
           })
         })
         .catch(error => this.handleError(error))
+    },
+    filterFiles(file){
+        if (this.$store.state.user.role !== 'admin')
+          return file.name !== 'desc.txt'
+        else
+          return true
     },
     goTo(path) {
       this.$router.push({ name: 'browser', query: { 'cd': path }}).catch(() => {})
@@ -270,6 +283,9 @@ export default {
       }
       event.preventDefault()
       this.$refs['ref-single-action-button-'+row.path].click()
+    },
+    getMetadata() {
+      return this.$store.state.cwd.metadata
     },
     selectDir() {
       this.$modal.open({
@@ -575,7 +591,7 @@ export default {
   padding: 0;
 }
 #browser {
-  margin: 50px auto 100px auto;
+  margin: 10px auto 100px auto;
 }
 .breadcrumb a {
   font-weight: bold;
@@ -600,5 +616,19 @@ export default {
 }
 .search-btn {
   margin-right: 10px;
+}
+
+/*.breadcrumb {*/
+/*    margin-bottom: 10px;*/
+/*}*/
+
+.metadata h3 {
+    font-size: 150%;
+    font-weight: bold;
+}
+
+.metadata p {
+    margin-top:5px;
+    margin-bottom: 1.5rem;
 }
 </style>
