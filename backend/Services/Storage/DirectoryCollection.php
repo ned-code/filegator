@@ -18,6 +18,8 @@ class DirectoryCollection implements \JsonSerializable
 
     protected $location;
 
+    protected $metadata;
+
     public function __construct($location)
     {
         $this->location = $location;
@@ -38,6 +40,11 @@ class DirectoryCollection implements \JsonSerializable
         ]);
     }
 
+    public function setMetadata($metadata)
+    {
+        $this->metadata = $metadata;
+    }
+
     public function resetTimestamps($timestamp = 0)
     {
         foreach ($this->items as &$item) {
@@ -52,6 +59,7 @@ class DirectoryCollection implements \JsonSerializable
         return [
             'location' => $this->location,
             'files' => $this->items,
+            'metadata' => $this->metadata
         ];
     }
 }

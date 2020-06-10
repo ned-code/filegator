@@ -15,6 +15,8 @@ use League\Flysystem\Filesystem as Flysystem;
 
 class Filesystem implements Service
 {
+    use hasDescription;
+
     protected $separator;
 
     protected $storage;
@@ -194,6 +196,9 @@ class Filesystem implements Service
     public function getDirectoryCollection(string $path, bool $recursive = false): DirectoryCollection
     {
         $collection = new DirectoryCollection($path);
+
+        // Add Directory Metadata
+        $collection->setMetadata($this->readDescriptionFile($path));
 
         foreach ($this->storage->listContents($this->applyPathPrefix($path), $recursive) as $entry) {
             // By default only 'path' and 'type' is present
