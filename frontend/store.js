@@ -13,7 +13,8 @@ export default new Vuex.Store({
       role: 'guest',
       permissions: [],
       name: '',
-      username: ''
+      username: '',
+      homedir:''
     },
     cwd: {
       location: '/',
