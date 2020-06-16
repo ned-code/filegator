@@ -146,7 +146,7 @@
                 <b-dropdown-item v-if="props.row.type == 'file' && can('download')" v-clipboard:copy="getDownloadLink(props.row.path)" aria-role="listitem">
                   <b-icon icon="clipboard" size="is-small" /> {{ lang('Copy link') }}
                 </b-dropdown-item>
-                <b-dropdown-item v-if="props.row.type == 'file' && can('download')" v-clipboard:copy="getDirectLink(props.row.path)" aria-role="listitem">
+                <b-dropdown-item v-if="props.row.type == 'file' && can('download') && !is('guest')" v-clipboard:copy="getDirectLink(props.row.path)" aria-role="listitem">
                   <b-icon icon="clipboard" size="is-small" /> {{ lang('Copy Direct link') }}
                 </b-dropdown-item>
               </b-dropdown>
