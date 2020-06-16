@@ -129,7 +129,8 @@ const funcs = {
       return Vue.config.baseURL+'/download&path='+encodeURIComponent(Base64.encode(path))
     },
     getDirectLink(path) {
-      return Vue.config.rootUrl + store.state.config.repo_url + store.state.user.homedir + path
+      let homedir = store.state.user.homedir !== '/' ? store.state.user.homedir:''
+      return Vue.config.rootUrl + store.state.config.repo_url + homedir + path
     },
     hasPreview(name) {
       return this.isText(name) || this.isImage(name)
