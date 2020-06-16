@@ -16,6 +16,8 @@ Vue.config.productionTip = false
 
 /* eslint-disable-next-line */
 Vue.config.baseURL = process.env.VUE_APP_API_ENDPOINT ? process.env.VUE_APP_API_ENDPOINT : window.location.origin+window.location.pathname+'?r='
+/* eslint-disable-next-line */
+Vue.config.rootUrl = process.env.VUE_APP_HOME_PATH ? process.env.VUE_APP_HOME_PATH : window.location.origin+window.location.pathname
 
 axios.defaults.withCredentials = true
 axios.defaults.baseURL = Vue.config.baseURL

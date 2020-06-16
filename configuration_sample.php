@@ -17,6 +17,7 @@ return [
         'editable' => ['.txt', '.css', '.js', '.ts', '.html', '.php'],
         'date_format' => 'YY/MM/DD hh:mm:ss', // see: https://momentjs.com/docs/#/displaying/format/
         'guest_redirection' => '', // useful for external auth adapters
+        'repo_url'=> 'repository/' // path to direct download directory or alias
     ],
 
     'services' => [
