@@ -38,7 +38,7 @@ class Filesystem implements Service
     {
         $destination = $this->joinPaths($this->applyPathPrefix($path), $name);
 
-        while (! empty($this->storage->listContents($destination, true))) {
+        while (!empty($this->storage->listContents($destination, true))) {
             $destination = $this->upcountName($destination);
         }
 
@@ -89,7 +89,7 @@ class Filesystem implements Service
         $source_dir = $this->getBaseName($source);
         $real_destination = $this->joinPaths($destination, $source_dir);
 
-        while (! empty($this->storage->listContents($real_destination, true))) {
+        while (!empty($this->storage->listContents($real_destination, true))) {
             $real_destination = $this->upcountName($real_destination);
         }
 
@@ -100,7 +100,7 @@ class Filesystem implements Service
         }
 
         foreach ($contents as $file) {
-            $source_path = $this->separator.ltrim($file['path'], $this->separator);
+            $source_path = $this->separator . ltrim($file['path'], $this->separator);
             $path = substr($source_path, strlen($source), strlen($source_path));
 
             if ($file['type'] == 'dir') {
@@ -208,11 +208,11 @@ class Filesystem implements Service
             $dirname = isset($entry['dirname']) ? $entry['dirname'] : $path;
             $size = isset($entry['size']) ? $entry['size'] : 0;
             $timestamp = isset($entry['timestamp']) ? $entry['timestamp'] : 0;
-
-            $collection->addFile($entry['type'], $userpath, $name, $size, $timestamp);
+            if ($name[0] !== '.') // Don't show .files like .gitignore and .htaccess
+                $collection->addFile($entry['type'], $userpath, $name, $size, $timestamp);
         }
 
-        if (! $recursive && $this->addSeparators($path) !== $this->separator) {
+        if (!$recursive && $this->addSeparators($path) !== $this->separator) {
             $collection->addFile('back', $this->getParent($path), '..', 0, 0);
         }
 
@@ -224,7 +224,7 @@ class Filesystem implements Service
         $index = isset($matches[1]) ? intval($matches[1]) + 1 : 1;
         $ext = isset($matches[2]) ? $matches[2] : '';
 
-        return ' ('.$index.')'.$ext;
+        return ' (' . $index . ')' . $ext;
     }
 
     protected function upcountName($name)
@@ -244,10 +244,10 @@ class Filesystem implements Service
 
     private function stripPathPrefix(string $path): string
     {
-        $path = $this->separator.ltrim($path, $this->separator);
+        $path = $this->separator . ltrim($path, $this->separator);
 
         if (substr($path, 0, strlen($this->getPathPrefix())) == $this->getPathPrefix()) {
-            $path = $this->separator.substr($path, strlen($this->getPathPrefix()));
+            $path = $this->separator . substr($path, strlen($this->getPathPrefix()));
         }
 
         return $path;
@@ -255,42 +255,42 @@ class Filesystem implements Service
 
     private function addSeparators(string $dir): string
     {
-        if (! $dir || $dir == $this->separator || ! trim($dir, $this->separator)) {
+        if (!$dir || $dir == $this->separator || !trim($dir, $this->separator)) {
             return $this->separator;
         }
 
-        return $this->separator.trim($dir, $this->separator).$this->separator;
+        return $this->separator . trim($dir, $this->separator) . $this->separator;
     }
 
     private function joinPaths(string $path1, string $path2): string
     {
-        if (! $path2 || ! trim($path2, $this->separator)) {
+        if (!$path2 || !trim($path2, $this->separator)) {
             return $this->addSeparators($path1);
         }
 
-        return $this->addSeparators($path1).ltrim($path2, $this->separator);
+        return $this->addSeparators($path1) . ltrim($path2, $this->separator);
     }
 
     private function getParent(string $dir): string
     {
-        if (! $dir || $dir == $this->separator || ! trim($dir, $this->separator)) {
+        if (!$dir || $dir == $this->separator || !trim($dir, $this->separator)) {
             return $this->separator;
         }
 
         $tmp = explode($this->separator, trim($dir, $this->separator));
         array_pop($tmp);
 
-        return $this->separator.trim(implode($this->separator, $tmp), $this->separator);
+        return $this->separator . trim(implode($this->separator, $tmp), $this->separator);
     }
 
     private function getBaseName(string $path): string
     {
-        if (! $path || $path == $this->separator || ! trim($path, $this->separator)) {
+        if (!$path || $path == $this->separator || !trim($path, $this->separator)) {
             return $this->separator;
         }
 
         $tmp = explode($this->separator, trim($path, $this->separator));
 
-        return  (string) array_pop($tmp);
+        return (string)array_pop($tmp);
     }
 }
