@@ -304,15 +304,10 @@ class UploadTest extends TestCase
         $this->sendRequest('POST', '/getdir', [
             'dir' => '/',
         ]);
-
+        // SHOULDN'T DISPLAY FILES WITH BAD NAMES
         $this->assertResponseJsonHas([
             'data' => [
                 'files' => [
-                    0 => [
-                        'type' => 'file',
-                        'path' => '/..--s-u---pe----rm---an-.t-xt..--',
-                        'name' => '..--s-u---pe----rm---an-.t-xt..--',
-                    ],
                 ],
             ],
         ]);
