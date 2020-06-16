@@ -104,6 +104,7 @@ class FilesystemTest extends TestCase
                     'time' => 0,
                 ],
             ],
+            "metadata"=> [],
         ]));
     }
 
@@ -134,6 +135,7 @@ class FilesystemTest extends TestCase
                     'time' => 0,
                 ],
             ],
+             "metadata"=> []
         ]), json_encode($ret));
     }
 
@@ -164,6 +166,7 @@ class FilesystemTest extends TestCase
                     'time' => -1,
                 ],
             ],
+            "metadata"=> []
         ]), json_encode($ret));
     }
 
@@ -195,6 +198,7 @@ class FilesystemTest extends TestCase
                     'time' => 0,
                 ],
             ],
+            "metadata"=> []
         ]), json_encode($ret));
     }
 
