@@ -130,7 +130,7 @@ const funcs = {
     },
     getDirectLink(path) {
       let homedir = store.state.user.homedir !== '/' ? store.state.user.homedir:''
-      return Vue.config.rootUrl + store.state.config.repo_url + homedir + path
+      return Vue.config.rootUrl + store.state.config.repo_url + homedir + encodeURI(path)
     },
     hasPreview(name) {
       return this.isText(name) || this.isImage(name)
