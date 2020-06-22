@@ -73,6 +73,8 @@ export default {
       this.$router.push('/login').catch(() => {})
     },
     profile() {
+      if (this.$store.getters.hasPermissions('autologin'))
+        return
       this.$modal.open({
         parent: this,
         hasModalCard: true,
